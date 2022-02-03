@@ -1,4 +1,5 @@
 use crate::service::{auth::current, request::get_token};
+use crate::types::Res;
 use crate::types::auth::UserInfo;
 use yew::{
     function_component, html, use_state, Children, ContextProvider, Html, Properties,
@@ -26,11 +27,13 @@ pub fn user_context(props: &Props) -> Html {
 
     {
         let user_ctx = user_ctx.clone();
-        use_effect_with_deps(move|res|{
-            if let Some(user_info) = &res.data{
-                log::info!("{:#?}", user_info);
+        use_effect_with_deps(move|v|{
+            if let Some(res) = &v.data{
+                let data = &res.data;
+                log::info!("{:#?}", data);
+                user_ctx.set(data.clone());
             }
-
+            
             ||{}
         }, current_user);
     }

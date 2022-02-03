@@ -1,4 +1,5 @@
-use crate::types::auth::LoginInfo;
+use crate::hooks::use_user_context;
+use crate::types::auth::{LoginInfo, UserInfo};
 
 use super::common::{footer::Footer, header::Header};
 use crate::service::auth::login;
@@ -50,6 +51,10 @@ pub fn login() -> Html {
         user_login.clone(),
     );
 
+
+    let user_info = &*use_user_context();
+    
+
     let on_submit = Callback::from(move |e: MouseEvent| {
         e.prevent_default(); /* Prevent event propagation */
         let user_login = user_login.clone();
@@ -62,7 +67,7 @@ pub fn login() -> Html {
             <Header />
             <div class="row">
                 <div class="login-box row col l4 offset-l4 m8 offset-m2 s12 offset-s0">
-                    <h3 class="center">{"用户登录"}</h3>
+                    <h3 class="center">{"用户登录"}{&user_info.username}</h3>
                     <form class="col s12" >
                         <div class="row">
                             <div class="input-field col s12">

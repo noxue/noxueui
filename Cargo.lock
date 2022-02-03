@@ -620,6 +620,7 @@ dependencies = [
  "parking_lot",
  "reqwest",
  "serde",
+ "serde_json",
  "thiserror",
  "wasm-bindgen",
  "wasm-logger",

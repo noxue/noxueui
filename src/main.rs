@@ -3,6 +3,7 @@ pub mod pages;
 pub mod route;
 pub mod service;
 pub mod types;
+pub mod hooks;
 
 use crate::pages::login::Login;
 use crate::pages::provider::UserContext;

@@ -1,6 +1,5 @@
 //! Error type for error handling
 
-use crate::types::ErrorInfo;
 use thiserror::Error as ThisError;
 
 /// Define all possible errors
@@ -17,10 +16,6 @@ pub enum Error {
     /// 404
     #[error("Not Found")]
     NotFound,
-
-    /// 422
-    #[error("Unprocessable Entity: {0:?}")]
-    UnprocessableEntity(ErrorInfo),
 
     /// 500
     #[error("Internal Server Error")]

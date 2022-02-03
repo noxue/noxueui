@@ -1,16 +1,18 @@
-use std::collections::HashMap;
+use crate::{
+    error::Error,
+    types::{
+        auth::{LoginInfo, UserInfo},
+        Res,
+    },
+};
 
-use crate::{types::auth::{LoginInfo, UserInfo}, error::Error};
-
-use super::request::{post, get};
-
+use super::request::{get, post};
 
 /// Login a user
-pub async fn login(login_info: LoginInfo) -> Result<UserInfo, Error> {
-    post::<LoginInfo, UserInfo>("/users/login", login_info).await
+pub async fn login(login_info: LoginInfo) -> Result<Res<UserInfo>, Error> {
+    post::<LoginInfo, Res<UserInfo>>("/users/login", login_info).await
 }
 
-
-pub async fn current()->Result<HashMap<String,String>, Error>{
-    get::<HashMap<String,String>>("/user").await
+pub async fn current() -> Result<Res<UserInfo>, Error> {
+    get::<Res<UserInfo>>("/user").await
 }
