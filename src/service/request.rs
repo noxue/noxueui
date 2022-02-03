@@ -31,7 +31,7 @@ pub fn set_token(token: Option<String>) {
     let mut token_lock = TOKEN.write();
     *token_lock = token;
 }
- 
+
 /// 获取 jwt token.
 pub fn get_token() -> Option<String> {
     let token_lock = TOKEN.read();
@@ -39,7 +39,7 @@ pub fn get_token() -> Option<String> {
 }
 
 /// 用于创建所有类型的请求函数
-pub async fn request<B, T>(method: reqwest::Method, url: String, body: B) -> Result<T, Error>
+pub async fn request<B, T>(method: reqwest::Method, url: &str, body: B) -> Result<T, Error>
 where
     T: DeserializeOwned + 'static + std::fmt::Debug,
     B: Serialize + std::fmt::Debug,
@@ -58,6 +58,7 @@ where
         builder = builder.json(&body);
     }
 
+    
     let response = builder.send().await;
 
     if let Ok(data) = response {
@@ -92,7 +93,7 @@ where
 }
 
 /// Delete request
-pub async fn delete<T>(url: String) -> Result<T, Error>
+pub async fn delete<T>(url: &str) -> Result<T, Error>
 where
     T: DeserializeOwned + 'static + std::fmt::Debug,
 {
@@ -100,7 +101,7 @@ where
 }
 
 /// Get request
-pub async fn get<T>(url: String) -> Result<T, Error>
+pub async fn get<T>(url: &str) -> Result<T, Error>
 where
     T: DeserializeOwned + 'static + std::fmt::Debug,
 {
@@ -108,7 +109,7 @@ where
 }
 
 /// Post request with a body
-pub async fn post<B, T>(url: String, body: B) -> Result<T, Error>
+pub async fn post<B, T>(url: &str, body: B) -> Result<T, Error>
 where
     T: DeserializeOwned + 'static + std::fmt::Debug,
     B: Serialize + std::fmt::Debug,
@@ -117,7 +118,7 @@ where
 }
 
 /// Put request with a body
-pub async fn put<B, T>(url: String, body: B) -> Result<T, Error>
+pub async fn put<B, T>(url: &str, body: B) -> Result<T, Error>
 where
     T: DeserializeOwned + 'static + std::fmt::Debug,
     B: Serialize + std::fmt::Debug,

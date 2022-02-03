@@ -1,4 +1,4 @@
-use crate::types::auth::{LoginInfo, LoginInfoWrapper};
+use crate::types::auth::LoginInfo;
 
 use super::common::{footer::Footer, header::Header};
 use crate::service::auth::login;
@@ -8,8 +8,6 @@ use yew::prelude::*;
 use yew::{html, Component, Properties, TargetCast};
 use yew_hooks::use_async;
 use yew_router::prelude::*;
-
-
 
 #[function_component(Login)]
 pub fn login() -> Html {
@@ -38,12 +36,7 @@ pub fn login() -> Html {
 
     let user_login = {
         let login_info = login_info.clone();
-        use_async(async move {
-            let request = LoginInfoWrapper {
-                user: (*login_info).clone(),
-            };
-            login(request).await
-        })
+        use_async(async move { login((*login_info).clone()).await })
     };
 
     use_effect_with_deps(
@@ -73,14 +66,14 @@ pub fn login() -> Html {
                     <form class="col s12" >
                         <div class="row">
                             <div class="input-field col s12">
-                            <input placeholder="请输入用户名"  oninput={oninput_username} id="first_name" type="text" class="validate" />
-                            <label for="first_name">{"用户名"}</label>
+                                <input placeholder="请输入用户名"  oninput={oninput_username} id="first_name" type="text" class="validate" />
+                                <label for="first_name">{"用户名"}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                            <input id="password" placeholder="请输入密码" type="password" oninput={oninput_password} class="validate" />
-                            <label for="password">{"密码"}</label>
+                                <input id="password" placeholder="请输入密码" type="password" oninput={oninput_password} class="validate" />
+                                <label for="password">{"密码"}</label>
                             </div>
                         </div>
                         <div class="login-submit-btn" onclick={on_submit}>{"登录"}</div>

@@ -1,5 +1,5 @@
 use super::common::{footer::Footer, header::Header};
-use yew::{function_component, html, Html};
+use yew::{function_component, html};
 
 #[function_component(Index)]
 pub fn index() -> Html {
@@ -8,14 +8,14 @@ pub fn index() -> Html {
             <Header />
             <>
             <nav>
-              <div class="nav-wrapper">
-                  <div class="col s12">
-                  <a href="#!" class="breadcrumb">{"不学网"}</a>
-                  <a href="#!" class="breadcrumb">{"用户"}</a>
-                  <a href="#!" class="breadcrumb">{"登录"}</a>
-                  </div>
-              </div>
-              </nav>
+                <div class="nav-wrapper">
+                    <div class="col s12">
+                        <a href="#!" class="breadcrumb">{"不学网"}</a>
+                        <a href="#!" class="breadcrumb">{"用户"}</a>
+                        <a href="#!" class="breadcrumb">{"登录"}</a>
+                    </div>
+                </div>
+            </nav>
             <div class="row s8">
                 <form class="col s8 offset4">
                 <div class="row">

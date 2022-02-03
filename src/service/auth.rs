@@ -1,9 +1,16 @@
-use crate::{types::auth::{LoginInfoWrapper, UserInfoWrapper}, error::Error};
+use std::collections::HashMap;
 
-use super::request::post;
+use crate::{types::auth::{LoginInfo, UserInfo}, error::Error};
+
+use super::request::{post, get};
 
 
 /// Login a user
-pub async fn login(login_info: LoginInfoWrapper) -> Result<UserInfoWrapper, Error> {
-    post::<LoginInfoWrapper, UserInfoWrapper>("/users/login".to_string(), login_info).await
+pub async fn login(login_info: LoginInfo) -> Result<UserInfo, Error> {
+    post::<LoginInfo, UserInfo>("/users/login", login_info).await
+}
+
+
+pub async fn current()->Result<HashMap<String,String>, Error>{
+    get::<HashMap<String,String>>("/user").await
 }

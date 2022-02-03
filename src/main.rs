@@ -1,10 +1,11 @@
+pub mod error;
 pub mod pages;
 pub mod route;
-pub mod types;
 pub mod service;
-pub mod error;
+pub mod types;
 
 use crate::pages::login::Login;
+use crate::pages::provider::UserContext;
 use log::Level;
 use pages::index::Index;
 use route::Route;
@@ -22,9 +23,11 @@ fn switch(routes: &Route) -> Html {
 #[function_component(App)]
 fn app() -> Html {
     html! {
-        <BrowserRouter>
-            <Switch<Route> render={Switch::render(switch)} />
-        </BrowserRouter>
+        <UserContext>
+            <BrowserRouter>
+                <Switch<Route> render={Switch::render(switch)} />
+            </BrowserRouter>
+        </UserContext>
     }
 }
 
