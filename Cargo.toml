@@ -6,14 +6,15 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+# chrono = {version = "0.4", features = ["wasmbind"]}
 dotenv_codegen = "0.15.0"
 gloo = "0.6"
 lazy_static = "1.4.0"
 log = "0.4"
 parking_lot = "0.12.0"
 reqwest = {version = "0.11.9", features = ["json"]}
-serde = { version = "1", features = ["derive"] }
-serde_json="1"
+serde = {version = "1", features = ["derive"]}
+serde_json = "1"
 thiserror = "1"
 wasm-bindgen = "0.2"
 wasm-logger = "0.2.0"

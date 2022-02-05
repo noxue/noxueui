@@ -1,17 +1,26 @@
 use crate::hooks::use_user_context;
-use crate::types::auth::{LoginInfo, UserInfo};
+use crate::route::Route;
+use crate::types::auth::LoginInfo;
 
-use super::common::{footer::Footer, header::Header};
+use super::common::header::Header;
 use crate::service::auth::login;
-use wasm_bindgen::prelude::*;
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
-use yew::{html, Component, Properties, TargetCast};
+use yew::{html, TargetCast};
 use yew_hooks::use_async;
-use yew_router::prelude::*;
+use yew_router::history::History;
+use yew_router::hooks::use_history;
 
 #[function_component(Login)]
 pub fn login() -> Html {
+    let ctx = use_user_context();
+    let history = use_history().unwrap();
+
+    if ctx.is_authenticated() {
+        history.push(Route::Index);
+        return html!();
+    }
+
     let login_info = use_state(LoginInfo::default);
     let oninput_username = {
         let login_info = login_info.clone();
@@ -41,19 +50,17 @@ pub fn login() -> Html {
     };
 
     use_effect_with_deps(
-        move |user_login| {
-            if let Some(user_info) = &user_login.data {
+        move |res| {
+            if let Some(user_info) = &res.data {
                 log::info!("{:?}", user_info);
-                // ctx.login(user_info.user.clone());
+                ctx.login(user_info.data.clone());
+                history.push(Route::Index);
             }
             || ()
         },
         user_login.clone(),
     );
 
-
-    let user_info = &*use_user_context();
-    
 
     let on_submit = Callback::from(move |e: MouseEvent| {
         e.prevent_default(); /* Prevent event propagation */
@@ -67,7 +74,7 @@ pub fn login() -> Html {
             <Header />
             <div class="row">
                 <div class="login-box row col l4 offset-l4 m8 offset-m2 s12 offset-s0">
-                    <h3 class="center">{"用户登录"}{&user_info.username}</h3>
+                    <h3 class="center">{"用户登录"}</h3>
                     <form class="col s12" >
                         <div class="row">
                             <div class="input-field col s12">

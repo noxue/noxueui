@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::service::request::get_token;
+
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 pub struct UserInfo {
     pub username: String,
@@ -9,7 +11,7 @@ pub struct UserInfo {
 
 impl UserInfo {
     pub fn is_authenticated(&self) -> bool {
-        self.token.is_some()
+        get_token().is_some()
     }
 }
 
@@ -19,3 +21,20 @@ pub struct LoginInfo {
     pub password: String,
     pub r#type: String,
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct RegisterInfo {
+    pub username: String,
+    pub password: String,
+    pub password_confirm: String,
+    pub code: String,
+    pub r#type: String,
+}
+
+
+/// 用于请求验证码
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct PhoneRegisterCode {
+    pub phone: String,
+}
+

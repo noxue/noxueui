@@ -1,12 +1,14 @@
 pub mod error;
+pub mod hooks;
 pub mod pages;
 pub mod route;
 pub mod service;
 pub mod types;
-pub mod hooks;
 
 use crate::pages::login::Login;
+use crate::pages::logout::Logout;
 use crate::pages::provider::UserContext;
+use crate::pages::register::Register;
 use log::Level;
 use pages::index::Index;
 use route::Route;
@@ -18,6 +20,8 @@ fn switch(routes: &Route) -> Html {
         Route::Login => html! (<Login />),
         Route::NotFound => html! { <h1>{ "404" }</h1> },
         Route::Index => html!(<Index />),
+        Route::Logout => html!(<Logout />),
+        Route::Register => html!(<Register />),
     }
 }
 

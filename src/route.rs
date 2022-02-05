@@ -6,6 +6,10 @@ pub enum Route {
     Index,
     #[at("/login")]
     Login,
+    #[at("/logout")]
+    Logout,
+    #[at("/register")]
+    Register,
     #[not_found]
     #[at("/404")]
     NotFound,
