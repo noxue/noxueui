@@ -27,9 +27,9 @@ pub fn login() -> Html {
         Callback::from(move |e: InputEvent| {
             let input: HtmlInputElement = e.target_unchecked_into();
             let mut info = (*login_info).clone();
-            info.username = input.value();
+            info.credential = input.value();
             login_info.set(info);
-            log::info!("{}", login_info.username);
+            log::info!("{}", login_info.credential);
         })
     };
 

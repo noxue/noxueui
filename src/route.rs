@@ -10,6 +10,8 @@ pub enum Route {
     Logout,
     #[at("/register")]
     Register,
+    #[at("/forget")]
+    Forget,
     #[not_found]
     #[at("/404")]
     NotFound,

@@ -1,7 +1,7 @@
 use crate::{
     error::Error,
     types::{
-        auth::{LoginInfo, PhoneRegisterCode, RegisterInfo, UserInfo},
+        auth::{ForgetInfo, LoginInfo, PhoneForgetCode, PhoneRegisterCode, RegisterInfo, UserInfo},
         Res,
     },
 };
@@ -13,9 +13,18 @@ pub async fn phone_register_code(phone: PhoneRegisterCode) -> Result<Res<bool>, 
     post::<PhoneRegisterCode, Res<bool>>("/users/phone/code", phone).await
 }
 
+/// get reset password phone code
+pub async fn phone_forget_code(phone: PhoneForgetCode) -> Result<Res<bool>, Error> {
+    post::<PhoneForgetCode, Res<bool>>("/users/phone/reset/code", phone).await
+}
+
 /// phone register a user
 pub async fn register(reg_info: RegisterInfo) -> Result<Res<UserInfo>, Error> {
     post::<RegisterInfo, Res<UserInfo>>("/users/register", reg_info).await
+}
+/// reset password
+pub async fn forget(forget_info: ForgetInfo) -> Result<Res<UserInfo>, Error> {
+    post::<ForgetInfo, Res<UserInfo>>("/users/forget", forget_info).await
 }
 
 /// Login a user

@@ -17,7 +17,7 @@ impl UserInfo {
 
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct LoginInfo {
-    pub username: String,
+    pub credential: String,
     pub password: String,
     pub r#type: String,
 }
@@ -25,6 +25,18 @@ pub struct LoginInfo {
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct RegisterInfo {
     pub username: String,
+    pub phone: String,
+    pub password: String,
+    pub password_confirm: String,
+    pub code: String,
+    pub r#type: String,
+}
+
+
+/// 手机找回密码提交的数据
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct ForgetInfo {
+    pub phone: String,
     pub password: String,
     pub password_confirm: String,
     pub code: String,
@@ -38,3 +50,9 @@ pub struct PhoneRegisterCode {
     pub phone: String,
 }
 
+
+/// 用于请求重置密码的验证码
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct PhoneForgetCode {
+    pub phone: String,
+}
