@@ -1,7 +1,4 @@
 use yew::{function_component, html};
-use yew_router::prelude::*;
-
-use crate::route::Route;
 
 #[function_component(Footer)]
 pub fn footer() -> Html {

@@ -61,7 +61,6 @@ pub fn login() -> Html {
         user_login.clone(),
     );
 
-
     let on_submit = Callback::from(move |e: MouseEvent| {
         e.prevent_default(); /* Prevent event propagation */
         let user_login = user_login.clone();
@@ -74,7 +73,7 @@ pub fn login() -> Html {
             <Header />
             <div class="row">
                 <div class="login-box row col l4 offset-l4 m8 offset-m2 s12 offset-s0">
-                    <h3 class="center">{"用户登录"}</h3>
+                    <h5 class="col s6 offset-s3 center">{"用户登录"}</h5>
                     <form class="col s12" >
                         <div class="row">
                             <div class="input-field col s12">
@@ -88,9 +87,15 @@ pub fn login() -> Html {
                                 <label for="password">{"密码"}</label>
                             </div>
                         </div>
+                        <div class="row valign-wrapper">
+                            <div class="col s4 offset-s8 right-align">
+                                <a  href="/forget" style=" margin:auto;">{"忘记密码？"}</a>
+                            </div>
+                        </div>
                         <div class="login-submit-btn" onclick={on_submit}>{"登录"}</div>
                     </form>
                 </div>
+
             </div>
             </div>
         </>
