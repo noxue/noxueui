@@ -23,6 +23,12 @@ web-sys = {version = "0.3", features = ["DataTransfer", "DragEvent", "File", "Fi
 yew = "0.19"
 yew-hooks = "0.1.20"
 yew-router = "0.16"
-markdown = "0.3"
 gloo-utils="0.1"
 pulldown-cmark = "0.9"
+
+[profile.release]
+opt-level = 's'
+# LTO（Link Time Optimization），意为链接时优化。可以消除大量冗余代码，减小二进制体积——代价是更长的链接时间
+lto = true
+#Cargo 默认会启用 16 个并行代码生成单元，对编译速度有提升，但是会妨碍某些优化的进行。我们限制到 1
+codegen-units = 1

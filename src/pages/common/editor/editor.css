@@ -20,6 +20,7 @@
     outline: none;
 }
 .editor > .editor-preview{
+    background-color: #f7f7f7;
     width:50%;
     height:100%;
     overflow-y: scroll;
