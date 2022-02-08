@@ -23,3 +23,6 @@ web-sys = {version = "0.3", features = ["DataTransfer", "DragEvent", "File", "Fi
 yew = "0.19"
 yew-hooks = "0.1.20"
 yew-router = "0.16"
+markdown = "0.3"
+gloo-utils="0.1"
+pulldown-cmark = "0.9"

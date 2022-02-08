@@ -55,7 +55,9 @@ pub fn index() -> Html {
         <>
             <Header />
             <>
-            <textarea style="height:500px;" ondrop={on_drop} ondragover={on_dragover}></textarea>
+            <div id="editor">
+                {"首页"}
+            </div>
             </>
             <Footer />
         </>

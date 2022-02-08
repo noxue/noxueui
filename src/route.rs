@@ -12,6 +12,8 @@ pub enum Route {
     Register,
     #[at("/forget")]
     Forget,
+    #[at("/ask")]
+    Ask,
     #[not_found]
     #[at("/404")]
     NotFound,

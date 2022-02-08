@@ -5,10 +5,10 @@ pub mod route;
 pub mod service;
 pub mod types;
 
-use crate::pages::login::Login;
-use crate::pages::logout::Logout;
-use crate::pages::provider::UserContext;
-use crate::pages::{forget::Forget, register::Register};
+use crate::pages::{
+    ask::Ask, forget::Forget, login::Login, logout::Logout, provider::UserContext,
+    register::Register,
+};
 use log::Level;
 use pages::index::Index;
 use route::Route;
@@ -23,6 +23,7 @@ fn switch(routes: &Route) -> Html {
         Route::Logout => html!(<Logout />),
         Route::Register => html!(<Register />),
         Route::Forget => html!(<Forget />),
+        Route::Ask => html!(<Ask />),
     }
 }
 

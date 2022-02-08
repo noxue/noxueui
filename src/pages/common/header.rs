@@ -1,3 +1,4 @@
+use gloo::utils::document;
 use yew::{function_component, html};
 use yew_router::prelude::*;
 
@@ -6,13 +7,16 @@ use crate::{hooks::use_user_context, route::Route};
 #[function_component(Header)]
 pub fn header() -> Html {
     let ctx = use_user_context();
-
+    document();
     html! {
       <>
         <nav class="bg-primary">
           <div class="nav-wrapper">
-            <Link<Route> to={Route::Index} classes="brand-logo">{"不学网"}</Link<Route>>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <Link<Route> to={Route::Index} classes="brand-logo center">{"不学网"}</Link<Route>>
+            <ul class="">
+              <li><Link<Route> to={Route::Ask}>{"提问"}</Link<Route>></li>
+            </ul>
+            <ul class="right">
               <li><Link<Route> to={
                 if ctx.is_authenticated() {Route::Index} else {Route::Login}
               }>{

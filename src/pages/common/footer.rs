@@ -3,7 +3,7 @@ use yew::{function_component, html};
 #[function_component(Footer)]
 pub fn footer() -> Html {
     html! {
-        <footer class="page-footer bg-primary">
+        <footer class="page-footer bg-primary grey darken-1">
         <div class="container">
           <div class="row">
             <div class="col l6 s12">
