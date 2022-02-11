@@ -9,23 +9,23 @@ version = "0.1.0"
 # chrono = {version = "0.4", features = ["wasmbind"]}
 dotenv_codegen = "0.15.0"
 gloo = "0.6"
+gloo-utils = "0.1"
 js-sys = "0.3"
 lazy_static = "1.4.0"
 log = "0.4"
 parking_lot = "0.12.0"
+pulldown-cmark = "0.9"
 reqwest = {version = "0.11.9", features = ["json"]}
 serde = {version = "1", features = ["derive"]}
 serde_json = "1"
 thiserror = "1"
-wasm-bindgen = "0.2"
+wasm-bindgen = "0.2" 
 wasm-logger = "0.2.0"
-web-sys = {version = "0.3", features = ["DataTransfer", "DragEvent", "File", "FileList", "FileReader", "Blob"]}
+web-sys = {version = "0.3"}
 yew = "0.19"
 yew-hooks = "0.1.20"
 yew-router = "0.16"
-gloo-utils="0.1"
-pulldown-cmark = "0.9"
-
+ 
 [profile.release]
 opt-level = 's'
 # LTO（Link Time Optimization），意为链接时优化。可以消除大量冗余代码，减小二进制体积——代价是更长的链接时间

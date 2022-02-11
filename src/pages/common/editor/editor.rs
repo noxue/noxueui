@@ -1,7 +1,8 @@
 use crate::pages::common::utils::SafeHtml;
 use pulldown_cmark::{Options, Parser};
-use web_sys::{HtmlInputElement, InputEvent};
-use yew::{function_component, html, Callback, TargetCast, Properties, UseStateHandle};
+use wasm_bindgen::{prelude::Closure, JsCast};
+use web_sys::{Event, HtmlInputElement, InputEvent};
+use yew::{function_component, html, Callback, Properties, TargetCast, UseStateHandle};
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct Props {
@@ -36,6 +37,9 @@ pub fn editor(props: &Props) -> Html {
     let mut md_data = String::new();
     pulldown_cmark::html::push_html(&mut md_data, parser);
 
+    // 编辑器编号，区分多个编辑器
+    let mut editor_id = 0;
+
     html!(
           <>
           // 代码高亮插件 js 和 css
@@ -46,61 +50,22 @@ pub fn editor(props: &Props) -> Html {
             <SafeHtml tag_name="style" html={include_str!("editor.css")} />
             // github-markdown.css
             <SafeHtml tag_name="style" html={include_str!("github-markdown.css")} />
-            <div class="editor write">
+            <div id={editor_id=editor_id+1;format!("editor-{}", editor_id)} class="editor write">
                 <div class="tab-bar">
                   <div class="write">{"编辑"}</div>
                   <div class="preview">{"预览"}</div>
                 </div>
                 <div class="editor-body">
-                  <textarea id="editor-input" class="editor-input styled-scrollbars" oninput={on_editor_input}></textarea>
+                  <div class="editor-input-box">
+                    <textarea id="editor-input" class="editor-input styled-scrollbars" oninput={on_editor_input}></textarea>
+                    <div class="upload-bar">{"上传文件,支持拖拽上传,直接粘贴,或直接选择"}</div>
+                  </div>
                   <div class="editor-preview styled-scrollbars markdown-body" id="editor-preview">
                       <SafeHtml append_id="editor-preview" html={if md_data.is_empty() {"无内容".to_string()} else {md_data}} />
                   </div>
                 </div>
             </div>
-
-            // 让 textarea 支持 tab 键
-            <SafeHtml tag_name="script" html={r#"
-            document.getElementById('editor-input').addEventListener('keydown', function(e) {
-                if (e.key == 'Tab') {
-                  e.preventDefault();
-                  var start = this.selectionStart;
-                  var end = this.selectionEnd;
-              
-                  // set textarea value to: text before caret + tab + text after caret
-                  this.value = this.value.substring(0, start) +
-                    "\t" + this.value.substring(end);
-              
-                  // put caret at right position again
-                  this.selectionStart =
-                    this.selectionEnd = start + 1;
-                }
-              });
-            "#} />
-
-            // 切换
-            <SafeHtml tag_name="script" html={r#"
-              let editor = document.getElementsByClassName('editor')[0];
-
-              // 点击预览
-              document.querySelector('.editor .preview').addEventListener('click', function(e) {
-                
-                // 点击预览就高亮显示代码
-                if(hljs){
-                    hljs.highlightAll();
-                }
-
-                editor.classList.remove('write');
-                editor.classList.add('preview');
-              });
-              
-              // 点击编辑
-              document.querySelector('.editor .write').addEventListener('click', function(e) {
-                console.log("click preview")
-                editor.classList.remove('preview');
-                editor.classList.add('write');
-              });
-            "#} />
+            <SafeHtml tag_name="script" html={include_str!("editor.js")} />
         </>
     )
 }

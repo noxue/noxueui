@@ -36,17 +36,22 @@
 
 
 .editor .editor-input{
+    font-size: 14px;
+    line-height: 20px;
     resize: vertical;
     width: calc(100% - 42px);
     min-height: 200px;
     max-height: 600px;
     padding: 8px;
     border:3px solid #f3f3f3;
+    border-bottom:0;
     overflow-y: auto;
     background:#f6f8fa;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
     margin:10px;
+    margin-bottom:0;
     display: none;
+    color:#666;
 }
 
 /* 选中编辑的时候，显示编辑框 */
@@ -54,12 +59,29 @@
   display: block;
 }
 
-.editor  .editor-input:focus{
+.editor .editor-input:focus{
     outline: none;
-    border:3px solid rgb(27, 159, 247);
+    border-bottom:0;
     background:#fff;
-    
 }
+
+.editor .upload-bar{
+  padding:10px;
+  display: none;
+  color:#666;
+  font-size: 14px;
+}
+
+.editor.write .upload-bar{
+  border:3px solid #f3f3f3;
+  border-top:1px dashed #ddd;
+  border-radius: 0 0 10px 10px;
+  margin:10px;
+  margin-top:0;
+  background:#f6f8fa;
+  display:block;
+}
+
 
 .editor  .editor-preview{
   width: calc(100% - 16px);
