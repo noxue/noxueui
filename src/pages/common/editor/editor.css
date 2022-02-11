@@ -1,58 +1,78 @@
 .editor{
-    width:100%;
-    height:500px;
+    width: calc(100% - 2px);
     display:flex;
-    border:2px solid #eee;
-    padding:3px;
+    flex-direction: column;
+    border:1px solid #d4dae1;
+    border-radius: 10px;
 }
 
-.editor > .editor-input{
-    resize: none;
-    width:50%;
-    height:100%;
-    overflow-y: scroll;
-    padding:5px;
-    margin:0;
-    border:0;
+
+.editor>.tab-bar{
+  width:calc(100% - 12px);
+  padding-left:10px;
+  display:flex;
+  flex-direction: row;
+  border-bottom: 1px solid #d4dae1;
+  height:40px;
 }
 
-.editor > .editor-input:focus{
+.editor>.tab-bar>div{
+  width:80px;
+  height:40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: #fff;
+  cursor: pointer;
+  
+}
+
+.editor.write>.tab-bar>div.write,.editor.preview>.tab-bar>div.preview{
+  height:41px;
+  border:1px solid #d4dae1;
+  border-top:0;
+  border-radius: 10px 10px 0 0;
+  border-bottom:0;
+}
+
+
+.editor .editor-input{
+    resize: vertical;
+    width: calc(100% - 42px);
+    min-height: 200px;
+    max-height: 600px;
+    padding: 8px;
+    border:3px solid #f3f3f3;
+    overflow-y: auto;
+    background:#f6f8fa;
+    border-radius: 10px;
+    margin:10px;
+    display: none;
+}
+
+/* 选中编辑的时候，显示编辑框 */
+.editor.write .editor-input{
+  display: block;
+}
+
+.editor  .editor-input:focus{
     outline: none;
-}
-.editor > .editor-preview{
-    background-color: #f7f7f7;
-    width:50%;
-    height:100%;
-    overflow-y: scroll;
-    overflow-wrap: break-word;
-    padding:5px;
-    margin:0;
-    border:0;
+    border:3px solid rgb(27, 159, 247);
+    background:#fff;
+    
 }
 
-.styled-scrollbars::-webkit-scrollbar-track
-{
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  background-color: #F5F5F5;
-  border-radius: 5px;
+.editor  .editor-preview{
+  width: calc(100% - 16px);
+  min-height: 200px;
+  max-height: 600px;
+  padding: 8px;
+  overflow-y: auto;
+  display: none;
+  border-radius: 10px;
 }
 
-.styled-scrollbars::-webkit-scrollbar
-{
-  width: 5px;
-  background-color: #F5F5F5;
-}
 
-.styled-scrollbars::-webkit-scrollbar-thumb
-{
-  background-color: #AAA;
-  border-radius: 5px;
-  background-image: -webkit-linear-gradient(90deg,
-                                            rgba(0, 0, 0, .2) 25%,
-                        transparent 25%,
-                        transparent 50%,
-                        rgba(0, 0, 0, .2) 50%,
-                        rgba(0, 0, 0, .2) 75%,
-                        transparent 75%,
-                        transparent)
+/* 选中预览的时候，显示预览界面 */
+.editor.preview .editor-preview{
+  display: block;
 }

@@ -1,13 +1,16 @@
-
-
 use crate::pages::common::utils::SafeHtml;
 use pulldown_cmark::{Options, Parser};
 use web_sys::{HtmlInputElement, InputEvent};
-use yew::{function_component, html, use_state, Callback, TargetCast};
+use yew::{function_component, html, Callback, TargetCast, Properties, UseStateHandle};
+
+#[derive(Properties, Clone, PartialEq)]
+pub struct Props {
+    pub value: UseStateHandle<String>,
+}
 
 #[function_component(Editor)]
-pub fn editor() -> Html {
-    let md_data = use_state(String::default);
+pub fn editor(props: &Props) -> Html {
+    let md_data = props.value.clone();
     let on_editor_input = {
         let md_data = md_data.clone();
         Callback::from(move |e: InputEvent| {
@@ -39,14 +42,20 @@ pub fn editor() -> Html {
           <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
           <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/github.min.css" rel="stylesheet" />
 
-          // css 样式
+            // css 样式
             <SafeHtml tag_name="style" html={include_str!("editor.css")} />
             // github-markdown.css
             <SafeHtml tag_name="style" html={include_str!("github-markdown.css")} />
-            <div class="editor">
-                <textarea id="editor-input" class="editor-input styled-scrollbars" oninput={on_editor_input}></textarea>
-                <div class="editor-preview styled-scrollbars markdown-body" id="editor-preview">
-                    <SafeHtml append_id="editor-preview" html={md_data} />
+            <div class="editor write">
+                <div class="tab-bar">
+                  <div class="write">{"编辑"}</div>
+                  <div class="preview">{"预览"}</div>
+                </div>
+                <div class="editor-body">
+                  <textarea id="editor-input" class="editor-input styled-scrollbars" oninput={on_editor_input}></textarea>
+                  <div class="editor-preview styled-scrollbars markdown-body" id="editor-preview">
+                      <SafeHtml append_id="editor-preview" html={if md_data.is_empty() {"无内容".to_string()} else {md_data}} />
+                  </div>
                 </div>
             </div>
 
@@ -69,12 +78,27 @@ pub fn editor() -> Html {
               });
             "#} />
 
-            // 每次松开按键，就执行高亮代码函数
+            // 切换
             <SafeHtml tag_name="script" html={r#"
-            document.getElementById('editor-input').addEventListener('keyup', function(e) {
+              let editor = document.getElementsByClassName('editor')[0];
+
+              // 点击预览
+              document.querySelector('.editor .preview').addEventListener('click', function(e) {
+                
+                // 点击预览就高亮显示代码
                 if(hljs){
                     hljs.highlightAll();
                 }
+
+                editor.classList.remove('write');
+                editor.classList.add('preview');
+              });
+              
+              // 点击编辑
+              document.querySelector('.editor .write').addEventListener('click', function(e) {
+                console.log("click preview")
+                editor.classList.remove('preview');
+                editor.classList.add('write');
               });
             "#} />
         </>
