@@ -8,7 +8,7 @@
 
 
 .editor>.tab-bar{
-  width:calc(100% - 12px);
+  width:100%;
   padding-left:10px;
   display:flex;
   flex-direction: row;
@@ -18,7 +18,7 @@
 
 .editor>.tab-bar>div{
   width:80px;
-  height:40px;
+  height:39px;
   line-height: 40px;
   text-align: center;
   background-color: #fff;
@@ -39,7 +39,7 @@
     font-size: 14px;
     line-height: 20px;
     resize: vertical;
-    width: calc(100% - 42px);
+    width: calc(100% - 20px);
     min-height: 200px;
     max-height: 600px;
     padding: 8px;

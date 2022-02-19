@@ -3,15 +3,18 @@ use pulldown_cmark::{Options, Parser};
 use web_sys::{HtmlInputElement, InputEvent};
 use yew::{function_component, html, Callback, Properties, TargetCast, UseStateHandle};
 
+
+const EDITORJS:&str = include_str!("editor.js");
+
 #[derive(Properties, Clone, PartialEq)]
 pub struct Props {
     pub value: UseStateHandle<String>,
     #[prop_or_default]
     pub file_base_url: String,
     #[prop_or_default]
-    pub file_upload_url:String,
+    pub file_upload_url: String,
     #[prop_or("file".to_string())]
-    pub file_name:String,
+    pub file_name: String,
 }
 
 #[function_component(Editor)]
@@ -39,12 +42,11 @@ pub fn editor(props: &Props) -> Html {
     let mut md_data = String::new();
     pulldown_cmark::html::push_html(&mut md_data, parser);
 
-
     // 读取 editor.js 文件，并替换其中的配置地址
-    let editorjs = include_str!("editor.js")
-    .replace("FILE_BASE_URL", &props.file_base_url)
-    .replace("FILE_UPLOAD_URL", &props.file_upload_url)
-    .replace("FILE_NAME", &props.file_name);
+    let editorjs = EDITORJS
+        .replace("FILE_BASE_URL", &props.file_base_url)
+        .replace("FILE_UPLOAD_URL", &props.file_upload_url)
+        .replace("FILE_NAME", &props.file_name);
 
     html!(
           <>

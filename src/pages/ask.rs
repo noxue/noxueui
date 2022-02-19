@@ -10,7 +10,7 @@ pub fn ask() -> Html {
     let data = use_state(String::default);
     html! {
         <>
-          // <Header />
+          <Header />
           <div style="padding:40px;">
             <Editor value={data.clone()} file_base_url={FILE_BASE_URL.to_string()} file_upload_url={FILE_UPLOAD_URL.to_string()} />
           </div>
