@@ -70,6 +70,11 @@
   display: none;
   color:#666;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.editor #ediotr-file-input{
+  display: none;
 }
 
 .editor.write .upload-bar{
