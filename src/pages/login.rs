@@ -77,8 +77,8 @@ pub fn login() -> Html {
                     <form class="col s12" >
                         <div class="row">
                             <div class="input-field col s12">
-                                <input placeholder="请输入用户名"  oninput={oninput_username} id="first_name" type="text" class="validate" />
-                                <label for="first_name">{"用户名"}</label>
+                                <input placeholder="请输入手机号"  oninput={oninput_username} id="first_name" type="text" class="validate" />
+                                <label for="first_name">{"手机号"}</label>
                             </div>
                         </div>
                         <div class="row">

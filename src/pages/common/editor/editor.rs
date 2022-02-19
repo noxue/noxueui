@@ -66,7 +66,7 @@ pub fn editor(props: &Props) -> Html {
                 </div>
                 <div class="editor-body">
                   <div class="editor-input-box">
-                    <textarea id="editor-input" class="editor-input styled-scrollbars" oninput={on_editor_input}></textarea>
+                    <textarea id="editor-input" placeholder="请输入内容" class="editor-input styled-scrollbars" oninput={on_editor_input}></textarea>
                     <div class="upload-bar">{"点击此处上传文件,支持拖拽上传,或直接粘贴文件"}</div>
                     <input type="file"  id="ediotr-file-input" multiple={true} />
                   </div>
